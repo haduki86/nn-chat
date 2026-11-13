@@ -61,3 +61,12 @@ test('投稿者には指定されたアイコン付きの編集フォームを�
   assert.match(html, /class="bi bi-pencil-square"/);
   assert.match(html, /<textarea[^>]*>編集対象<\/textarea>/);
 });
+
+test('404画面とログアウト画面に渡された画像を表示する', () => {
+  const imagePath = '/IMG_0077.jpeg';
+  const notFoundHtml = pug.renderFile('./views/404.pug', { imagePath });
+  const logoutHtml = pug.renderFile('./views/logout.pug', { imagePath });
+
+  assert.match(notFoundHtml, /src="\/IMG_0077\.jpeg"/);
+  assert.match(logoutHtml, /src="\/IMG_0077\.jpeg"/);
+});

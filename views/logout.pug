@@ -3,6 +3,9 @@ html(lang="ja")
     meta(charset="UTF-8")
     link(rel="stylesheet" href="style.css")
     title Logout
-  body.Logout
-    h1 ログアウトしました
-    a(href="/posts") ログイン
+  body.not-found-page
+    div.not-found-hero
+      img(src=imagePath, alt="背景写真")
+      div.not-found-message
+        h1 ログアウトしました
+        a(href="/posts") ログイン
