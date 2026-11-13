@@ -37,11 +37,22 @@ html(lang="ja")
             p.card-text.lead #{post.content}
           - const isDeletable = (user === post.postedBy || user === 'admin')
           if isDeletable
-            div.card-footer.d-flex.justify-content-end
-              form(method="post" action="/posts/delete")
+            div.card-footer
+              div.d-flex.justify-content-end.gap-2
+                button.btn.btn-outline-primary.btn-sm(type="button" data-edit-button=post.id aria-expanded="false" aria-controls=`edit-form-${post.id}` aria-label="投稿を編集")
+                  svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16")
+                    path(d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z")
+                    path(fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z")
+                form(method="post" action="/posts/delete")
+                  input(type="hidden" name="id" value=post.id)
+                  button(type="submit").btn.btn-outline-danger.btn-sm
+                    i.bi-trash
+              form.d-none.mt-3(id=`edit-form-${post.id}` method="post" action="/posts/edit" data-edit-form)
                 input(type="hidden" name="id" value=post.id)
-                button(type="submit").btn.btn-outline-danger.btn-sm
-                  i.bi-trash
+                textarea.form-control(name="content" rows="3" required)= post.content
+                div.d-flex.justify-content-end.gap-2.mt-2
+                  button(type="submit").btn.btn-primary.btn-sm 保存
+                  button(type="button" data-edit-cancel=post.id).btn.btn-outline-secondary.btn-sm キャンセル
 
     div.fixed-bottom.p-4.bg-body
       form(method="post" action="/posts" name="message-form").container-fluid.row.g-3

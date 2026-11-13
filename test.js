@@ -35,3 +35,29 @@ test('投稿一覧にナビゲーションが一つだけ表示され、投稿�
   assert.equal((html.match(/<nav\b/g) || []).length, 1);
   assert.match(html, /<textarea[^>]*name="content"[^>]*required/);
 });
+
+test('投稿者には指定されたアイコン付きの編集フォームを表示する', () => {
+  const html = pug.renderFile('./views/posts.pug', {
+    posts: [
+      {
+        id: 1,
+        content: '編集対象',
+        postedBy: 'test_user',
+        createdAt: new Date(),
+      },
+      {
+        id: 2,
+        content: '他のユーザーの投稿',
+        postedBy: 'other_user',
+        createdAt: new Date(),
+      },
+    ],
+    user: 'test_user',
+    currentTheme: 'light',
+    oneTimeToken: 'token',
+  });
+
+  assert.equal((html.match(/action="\/posts\/edit"/g) || []).length, 1);
+  assert.match(html, /class="bi bi-pencil-square"/);
+  assert.match(html, /<textarea[^>]*>編集対象<\/textarea>/);
+});

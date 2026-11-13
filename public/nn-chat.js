@@ -21,6 +21,26 @@ textareaElement.addEventListener('keydown', (event) => {
     formElement.requestSubmit();
   }
 });
+
+document.querySelectorAll('[data-edit-button]').forEach((button) => {
+  const editForm = document.getElementById(`edit-form-${button.dataset.editButton}`);
+  const cancelButton = editForm.querySelector(`[data-edit-cancel="${button.dataset.editButton}"]`);
+
+  button.addEventListener('click', () => {
+    editForm.classList.toggle('d-none');
+    const isExpanded = !editForm.classList.contains('d-none');
+    button.setAttribute('aria-expanded', String(isExpanded));
+    if (isExpanded) {
+      editForm.querySelector('textarea').focus();
+    }
+  });
+
+  cancelButton.addEventListener('click', () => {
+    editForm.classList.add('d-none');
+    button.setAttribute('aria-expanded', 'false');
+  });
+});
+
 function isPressedSubmitKey(event) {
   if (event.key !== 'Enter') {
     return false;
