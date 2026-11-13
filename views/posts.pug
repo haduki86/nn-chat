@@ -45,10 +45,12 @@ html(lang="ja")
                     path(fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z")
                 form(method="post" action="/posts/delete")
                   input(type="hidden" name="id" value=post.id)
+                  input(type="hidden" name="oneTimeToken" value=oneTimeToken)
                   button(type="submit").btn.btn-outline-danger.btn-sm
                     i.bi-trash
               form.d-none.mt-3(id=`edit-form-${post.id}` method="post" action="/posts/edit" data-edit-form)
                 input(type="hidden" name="id" value=post.id)
+                input(type="hidden" name="oneTimeToken" value=oneTimeToken)
                 textarea.form-control(name="content" rows="3" required)= post.content
                 div.d-flex.justify-content-end.gap-2.mt-2
                   button(type="submit").btn.btn-primary.btn-sm 保存

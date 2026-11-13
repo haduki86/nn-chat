@@ -58,6 +58,7 @@ test('投稿者には指定されたアイコン付きの編集フォームを�
   });
 
   assert.equal((html.match(/action="\/posts\/edit"/g) || []).length, 1);
+  assert.equal((html.match(/name="oneTimeToken" value="token"/g) || []).length, 3);
   assert.match(html, /class="bi bi-pencil-square"/);
   assert.match(html, /<textarea[^>]*>編集対象<\/textarea>/);
 });
