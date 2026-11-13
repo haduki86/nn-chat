@@ -5,10 +5,20 @@ window.addEventListener('load', () => {
 });
 const formElement = document.forms['message-form'];
 const textareaElement = formElement.elements['content'];
+formElement.addEventListener('submit', (event) => {
+  if (!textareaElement.value.trim()) {
+    event.preventDefault();
+    textareaElement.setCustomValidity('メッセージを入力してください。');
+    textareaElement.reportValidity();
+  }
+});
+textareaElement.addEventListener('input', () => {
+  textareaElement.setCustomValidity('');
+});
 textareaElement.addEventListener('keydown', (event) => {
   if (isPressedSubmitKey(event)) {
     event.preventDefault();
-    formElement.submit();
+    formElement.requestSubmit();
   }
 });
 function isPressedSubmitKey(event) {
